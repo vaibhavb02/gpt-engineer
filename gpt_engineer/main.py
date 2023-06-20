@@ -33,8 +33,8 @@ def main(
     logging.basicConfig(level=logging.DEBUG if verbose else logging.INFO)
 
     input_path = Path(project_path).absolute()
-    memory_path = input_path / f"{run_prefix}memory"
-    workspace_path = input_path / f"{run_prefix}workspace"
+    memory_path = Path(input_path) / f"{run_prefix}memory"
+    workspace_path = Path(input_path) / f"{run_prefix}workspace"
 
     if delete_existing:
         # Delete files and subdirectories in paths
@@ -56,7 +56,7 @@ def main(
 
     for step in STEPS[steps_config]:
         messages = step(ai, dbs)
-        dbs.logs[step.__name__] = json.dumps(messages)
+        dbs.logs[step.__name__] = json.dumps(messages, indent=2)
 
 
 if __name__ == "__main__":
