@@ -6,12 +6,12 @@ from pathlib import Path
 class DB:
     """A simple key-value store, where keys are filenames and values are file contents."""
 
-    def __init__(self, path):
-        self.path = Path(path).absolute()
+    def __init__(self, path: Path):
+        self.path = path
 
         self.path.mkdir(parents=True, exist_ok=True)
 
-    def __getitem__(self, key):
+    def __getitem__(self, key: str) -> str:
         full_path = self.path / key
 
         if not full_path.is_file():
@@ -19,7 +19,7 @@ class DB:
         with full_path.open("r", encoding="utf-8") as f:
             return f.read()
 
-    def __setitem__(self, key, val):
+   def __getitem__(self, key: str) -> str:
         full_path = self.path / key
         full_path.parent.mkdir(parents=True, exist_ok=True)
 
